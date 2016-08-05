@@ -1,4 +1,35 @@
 /* Empty. Add your own CSS if you like */
+.nyt-logo {
+    width: 40px;
+}
+
+.bar.bar-dark {
+    background: #000;
+}
+
+ion-tabs a.tab-item span {
+    font-size: 1.4em;
+}
+ion-tabs a.tab-item.tab-item-active span {
+    font-weight: bold;
+}
+
+.esc-lo {
+    background: #eee;
+}
+
+.esc-med {
+    background: #ffdb7f;
+}
+
+.esc-hi {
+    background: #ff624a;
+}
+
+.customer-item {
+    cursor: pointer;
+}
+
 #map {
     width: 100%;
     height: 100%;

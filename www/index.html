@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
@@ -23,123 +23,139 @@
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
-  </head>
-  <body ng-app="fpa">
-    <ion-pane ng-controller="FpaCtrl">
-      <ion-header-bar class="bar-stable">
+</head>
+<body ng-app="fpa">
+<ion-pane ng-controller="FpaCtrl" ng-cloak>
+    <ion-header-bar class="bar-dark">
+        <img class="nyt-logo" src="img/tlogo-inv.png"/>
         <h1 class="title">New York Times - FPA</h1>
-      </ion-header-bar>
-      <ion-tabs class=" tabs-top tabs-icon-left">
-        <ion-tab title="Search Routes" ng-controller="FpaSearchCtrl">
-          <ion-view>
-            <ion-content class="padding">
-              <div class="list">
-                <label class="item item-input item-select item-state">
-                  <div class="input-label">
-                    State
-                  </div>
-                  <select
-                    ng-options="currentState.lookupCode as currentState.description for currentState in lov_state"
-                    ng-model="state" name="stateSelect" id="stateSelect">
-                  </select>
-                </label>
-                <label class="item item-input item-select item-city">
-                  <div class="input-label">
-                    City
-                  </div>
-                  <select ng-model="city">
-                    <option value="New_York">New York</option>
-                    <option value="Pittsburgh" selected>Pittsburgh</option>
-                    <option value="Boston">Boston</option>
-                    <option value="Atlant">Atlanta</option>
-                  </select>
-                </label>
+    </ion-header-bar>
+    <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+        <div class="tabs">
+            <a class="tab-item active" href="#">
+                <i class="icon ion-home"></i>
+                Test
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-star"></i>
+                Favorites
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-gear-a"></i>
+                Settings
+            </a>
+        </div>
+    </div>
 
-                <label class="item item-input item-select item-route">
-                  <div class="input-label">
-                    Route
-                  </div>
-                  <select ng-options="currentRoute.id as currentRoute.name for currentRoute in routes"
-                          ng-model="route">
-                  </select>
-                </label>
-              </div>
-              <button class="button button-full button-positive" 
-                      ng-click="searchRoutes(state, city, route);" type="submit">
-                Search Routes
-              </button>
-            </ion-content>
-          </ion-view>
+
+    <ion-tabs class=" tabs-top tabs-icon-left">
+        <ion-tab title="Search Routes" ng-controller="FpaSearchCtrl">
+            <ion-view>
+                <ion-content class="padding">
+                    <div class="list">
+                        <label class="item item-input item-select item-state">
+                            <div class="input-label">
+                                State
+                            </div>
+                            <select
+                                    ng-options="currentState.lookupCode as currentState.description for currentState in lov_state"
+                                    ng-model="state" name="stateSelect" id="stateSelect">
+                            </select>
+                        </label>
+                        <label class="item item-input item-select item-city">
+                            <div class="input-label">
+                                City
+                            </div>
+                            <select ng-model="city">
+                                <option value="New_York">New York</option>
+                                <option value="Pittsburgh" selected>Pittsburgh</option>
+                                <option value="Boston">Boston</option>
+                                <option value="Atlant">Atlanta</option>
+                            </select>
+                        </label>
+
+                        <label class="item item-input item-select item-route">
+                            <div class="input-label">
+                                Route
+                            </div>
+                            <select ng-options="currentRoute.id as currentRoute.name for currentRoute in routes"
+                                    ng-model="routeInfo">
+                            </select>
+                        </label>
+                    </div>
+                    <button class="button button-full button-positive"
+                            ng-click="searchRoutesMock(state, city, route);" type="submit">
+                        Search Routes
+                    </button>
+                </ion-content>
+            </ion-view>
         </ion-tab>
-        <ion-tab title="Listings" ng-controller="FpaListingCtrl">
-          <ion-view>
-            <ion-content>
-              <ion-list>
-                <div class="item item-divider">
-                  Escalated Customers in Pittsburg Route {{ route }}
-                </div>
-                <ion-item ng-repeat="customer in results.data.customers | filter:escalationOnly">
-                  <div class="row">
-                    <div class="col col-90" ng-click="$parent.viewCustomer(customer)">
-                      <h2>{{ customer.name }} </h2>
-                      <h4>{{ customer.address | uppercase }}, {{ customer.city | uppercase }}
-                    </div>
-                    <div class="col col-10">
-                      <div class="listing-emotion">
-                        <i class="icon ion-android-sad"></i>
-                      </div>    
-                    </div>
-                  </div>  
-                  <ion-option-button class="button-info" ng-click="$parent.viewCustomerOnMap(customer)">
-                    <i class="icon ion-map"></i>
-                  </ion-option-button>  
-                </ion-item>
-                <div class="item item-divider">
-                  All Customers in Pittsburg Route {{ route }}
-                </div>
-                <ion-item ng-repeat="customer in results.data.customers">
-                  <div class="row">
-                    <div class="col col-90" ng-click="$parent.viewCustomer(customer)">
-                      <h2>{{ customer.name }} </h2>
-                      <h4>{{ customer.address | uppercase }}, {{ customer.city | uppercase }}
-                    </div>
-                    <div class="col col-10">
-                      <div class="listing-emotion">
-                        <i class="icon ion-android-happy"></i>
-                      </div>    
-                    </div>
-                  </div>  
-                  <ion-option-button class="button-info" ng-click="$parent.viewCustomerOnMap(customer)">
-                    <i class="icon ion-map"></i>
-                  </ion-option-button>  
-                </ion-item>
-              </ion-list>             
-            </ion-content>
-          </ion-view>
+        <ion-tab title="Customers" ng-controller="FpaListingCtrl">
+            <ion-view>
+                <ion-content>
+                    <ion-list>
+                        <div class="item item-divider">
+                            Escalated Customers in {{ routeInfo.name }}
+                        </div>
+                        <ion-item class="customer-item" ng-repeat="customer in customers | filter:escalationOnly">
+                            <div class="row" ng-class="customer.escalation.css_class" ng-click="$parent.viewCustomerOnMap(customer)">
+                                <div class="col col-60">
+                                    <h2>{{ customer.name }} </h2>
+                                    <h4>{{ customer.address | uppercase }}</h4>
+                                    <h4>{{ customer.city | uppercase }} {{ customer.zip }}</h4>
+                                </div>
+                                <div class="col col-30 col-offset-10">
+                                    <h2>{{ customer.escalation.type }}</h2>
+                                    <h4>Status {{ customer.escalation.status }}</h4>
+                                    <h4>Level {{ customer.escalation.level }}</h4>
+                                </div>
+                            </div>
+                        </ion-item>
+                        <div class="item item-divider">
+                            Non-Escalated Customers in Pittsburg Route {{ route }}
+                        </div>
+                        <ion-item ng-repeat="customer in customers">
+                            <div class="row">
+                                <div class="col col-100" ng-click="$parent.viewCustomerOnMap(customer)">
+                                    <h2>{{ customer.name }} </h2>
+                                    <h4>{{ customer.address | uppercase }}, {{ customer.city | uppercase }} {{ customer.zip }}</h4>
+                                </div>
+                            </div>
+                            <ion-option-button class="button-info" ng-click="$parent.viewCustomerOnMap(customer)">
+                                <i class="icon ion-map"></i>
+                            </ion-option-button>
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-view>
         </ion-tab>
-        <ion-tab title="Map" ng-controller="FpaMapCtrl" on-select="showMap()">
-          <ion-view>
-            <ion-content>
-              <div id="map" data-tap-disabled="true"></div>
-            </ion-content>
-          </ion-view>
+        <ion-tab title="Delivery Route Map" ng-controller="FpaMapCtrl" on-select="showMap()">
+            <ion-view>
+                <ion-content>
+                    <div id="map" data-tap-disabled="true"></div>
+                </ion-content>
+            </ion-view>
         </ion-tab>
-      </ion-tabs>
-    </ion-pane>
-  </body>
-  <script id="my-modal.html" type="text/ng-template">
+    </ion-tabs>
+</ion-pane>
+</body>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js" type = "text/javascript"></script>
+<script id="my-modal.html" type="text/ng-template">
     <ion-modal-view>
-      <ion-header-bar class="bar bar-header bar-positive">
-          <h1 class="title">New Contact</h1>
-          <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+        <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">New Contact</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
         </ion-header-bar>
-      <ion-content class="padding">
-        <h2>{{ selectedCustomer.name }}<h2>
-        <h3>{{ selectedCustomer.address }}, {{ selectedCustomer.city }}<h3>
-        <hr/>
-        <h4>Escalation Status: {{ selectedCustomer.escalation.status }}<h4>
-        <h4>Escalation Level: {{ selectedCustomer.escalation.level }}<h4>
-      </ion-content>
+        <ion-content class="padding">
+            <h2>{{ selectedCustomer.name }}
+            </h2>
+            <h3>{{ selectedCustomer.address }}, {{ selectedCustomer.city }}
+            </h3>
+            <hr/>
+            <h4>Escalation Status: {{ selectedCustomer.escalation.status }}
+            </h4>
+            <h4>Escalation Level: {{ selectedCustomer.escalation.level }}</h4>
+        </ion-content>
     </ion-modal-view>
-  </script>
+</script>
 </html>
